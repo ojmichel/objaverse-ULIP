@@ -180,8 +180,6 @@ def main(args):
         ])
 
     train_dataset = get_dataset(train_transform, tokenizer, args, 'train')
-    if args.debug_data:
-        train_dataset = torch.utils.data.Subset(train_dataset,list(range(50)))
     val_dataset = get_dataset(None, tokenizer, args, 'val')
 
     if args.distributed:

@@ -445,12 +445,16 @@ class ObjaverseXL(data.Dataset):
         self.tokenizer = config.tokenizer
         self.train_transform = config.train_transform
         self.rendered_image_addr = config.IMAGE_PATH
+        self.debug = config.args.debug_data
         self.picked_rotation_degrees = list(range(0, 360, 12))
         self.picked_rotation_degrees = [(3 - len(str(degree))) * '0' + str(degree) if len(str(degree)) < 3 else str(degree) for degree in self.picked_rotation_degrees]
 
-        with open("matched-pc-save-uids.json","r") as f:
-            self.file_list = json.load(f)
-
+        if not self.debug:
+            with open("matched-pc-save-uids.json","r") as f:
+                self.file_list = json.load(f)
+        else:
+            with open("matched-pc-save-uids-debug.json","r") as f:
+                self.file_list = json.load(f)
 
         self.augment = True
 
